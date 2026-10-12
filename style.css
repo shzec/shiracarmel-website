@@ -41,3 +41,13 @@ a[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
 .look-listen .video-list{border-top:1px solid var(--line)}
 .epk-management{margin:2rem 0 0;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.35);font-size:.78rem}
 .epk-management a{border-bottom:1px solid rgba(255,255,255,.7)}
+
+/* Video playlist selector */
+.playlist-interface{transform:none;text-align:left}
+.playlist-picker{display:flex;flex-wrap:wrap;gap:.55rem;margin:0 0 .8rem}
+.playlist-tab{border:1px solid rgba(33,30,26,.32);background:transparent;padding:.55rem .8rem;font:500 .62rem var(--mono);letter-spacing:.055em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.playlist-tab:hover,.playlist-tab.is-active{background:var(--wine);border-color:var(--wine);color:#fff}
+.playlist-tab:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.playlist-interface .playlist-frame{display:block;width:100%;aspect-ratio:16/9;border:0;background:#1d3c39}
+.playlist-open{display:inline-block;margin-top:.8rem;color:var(--wine);font-size:.72rem;border-bottom:1px solid currentColor}
+@media(max-width:760px){.hero-art{object-position:100% center}.playlist-tab{flex:1 1 145px;text-align:center}}
