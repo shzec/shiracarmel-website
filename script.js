@@ -9,35 +9,6 @@ document.querySelectorAll('.primary-nav a').forEach(link => link.addEventListene
   if (menuButton) menuButton.setAttribute('aria-expanded', 'false');
   if (nav) nav.classList.remove('is-open');
 }));
-document.querySelectorAll('[data-playlist-interface]').forEach(interfaceEl => {
-  const frame = interfaceEl.querySelector('.playlist-frame');
-  const openLink = interfaceEl.querySelector('.playlist-open');
-  const tabs = [...interfaceEl.querySelectorAll('.playlist-tab')];
-  const selectPlaylist = tab => {
-    const playlistId = tab.dataset.playlist;
-    const title = tab.dataset.playlistTitle || 'Shira Z. Carmel video playlist';
-    frame.src = `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(playlistId)}`;
-    frame.title = `${title} by Shira Z. Carmel`;
-    openLink.href = `https://www.youtube.com/playlist?list=${encodeURIComponent(playlistId)}`;
-    openLink.textContent = 'Open this playlist on YouTube ↗︎';
-    tabs.forEach(item => {
-      const active = item === tab;
-      item.classList.toggle('is-active', active);
-      item.setAttribute('aria-selected', String(active));
-      item.tabIndex = active ? 0 : -1;
-    });
-  };
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => selectPlaylist(tab));
-    tab.addEventListener('keydown', event => {
-      if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
-      event.preventDefault();
-      const next = tabs[(index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
-      next.focus();
-      selectPlaylist(next);
-    });
-  });
-});
 document.querySelectorAll('.poem-flip-card').forEach(card => card.addEventListener('click', () => {
   const flipped = card.classList.toggle('is-flipped');
   card.setAttribute('aria-pressed', String(flipped));
