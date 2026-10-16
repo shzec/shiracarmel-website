@@ -41,3 +41,22 @@ a[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
 .look-listen .video-list{border-top:1px solid var(--line)}
 .epk-management{margin:2rem 0 0;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.35);font-size:.78rem}
 .epk-management a{border-bottom:1px solid rgba(255,255,255,.7)}
+
+/* Mailing list signup */
+html{scroll-padding-top:90px}
+.hero-copy .button-row{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center}
+.hero-copy>.button{margin:.15rem .45rem .15rem 0}
+.button-outline{background:rgba(30,18,20,.2)}
+.closing-band{grid-template-columns:.8fr 1fr;align-items:start}
+.closing-details{align-self:center}
+.newsletter-signup{margin-top:2rem;padding:1.7rem 1.8rem;background:var(--paper-light);color:var(--ink);border:1px solid rgba(239,231,216,.55);box-shadow:8px 9px 0 rgba(0,0,0,.12);scroll-margin-top:90px}
+.newsletter-signup .eyebrow{margin-bottom:.55rem}
+.newsletter-signup h3{font:500 clamp(1.45rem,2.5vw,2rem)/1.1 var(--display);margin:.1rem 0 .65rem;color:var(--wine-dark)}
+.newsletter-signup>p:not(.eyebrow){margin:.2rem 0 1rem;color:#514b43;font-size:.83rem}
+.emailoctopus-form{min-height:58px}
+@media(max-width:760px){
+  .hero-copy .button{margin:.25rem .4rem .25rem 0}
+  .closing-band{grid-template-columns:1fr;gap:2rem}
+  .closing-details{width:100%}
+  .newsletter-signup{padding:1.25rem}
+}
