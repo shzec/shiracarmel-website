@@ -31,12 +31,7 @@
   <meta name="twitter:image" content="https://shiracarmel.com/assets/share-logo.jpg">
   <meta name="twitter:image:alt" content="Shira Z. Carmel embroidered sun, moon and hourglass logo">
   <style>
-    #music .feature-card{align-items:start}
-    #music .feature-copy{min-width:0}
-    #music .new-song-video{width:100%;aspect-ratio:16/9;background:#171717}
-    #music .new-song-title{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.3rem}
-    #music .new-song-title h2{font-size:clamp(2rem,3.4vw,3.3rem);margin:0;min-width:0}
-    #music .new-song-cover-thumb{width:clamp(64px,6vw,88px);height:auto;aspect-ratio:1;object-fit:cover;flex-shrink:0}
+    #music .new-song-video{grid-column:1/-1;width:100%;aspect-ratio:16/9;background:#171717}
   </style>
 </head>
 <body>
@@ -81,19 +76,16 @@
       <section class="featured section-grid" id="music">
         <div class="section-label"><span>02</span><span>New song</span></div>
         <div class="section-content feature-card">
-          <div class="new-song-video">
-            <iframe src="https://www.youtube-nocookie.com/embed/NtXNhtubljQ" title="Shira Z. Carmel — Four Boys Maybe Five" loading="lazy" style="display:block;width:100%;height:100%;border:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
+          <div class="cover-wrap"><img src="assets/four-boys-cover.webp" alt="Four Boys Maybe Five embroidered cover artwork"><span class="cover-tag">Latest release</span></div>
           <div class="feature-copy">
             <p class="eyebrow">A poem by Tal Nitzán · Set to music by Shira Z. Carmel</p>
-            <div class="new-song-title">
-              <h2>Four Boys<br><em>Maybe Five</em></h2>
-              <img class="new-song-cover-thumb" src="assets/four-boys-cover.webp" alt="Four Boys Maybe Five cover artwork" width="88" height="88">
-            </div>
+            <h2>Four Boys<br><em>Maybe Five</em></h2>
             <p>A stark chamber song about motherhood, moral responsibility, and violence as a double-edged sword. Voice, cello, baritone saxophone, and piano leave the poem exposed.</p>
             <div class="button-row"><a class="button button-dark" href="https://too.fm/fbmf" target="_blank" rel="noreferrer">Listen to the song ↗︎</a><a class="button button-light-ink" href="epk.html">Press Kit ↗︎</a></div>
           </div>
-
+          <div class="new-song-video">
+            <iframe src="https://www.youtube-nocookie.com/embed/NtXNhtubljQ" title="Shira Z. Carmel — Four Boys Maybe Five" loading="lazy" style="display:block;width:100%;height:100%;border:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
 
