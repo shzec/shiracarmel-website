@@ -93,7 +93,7 @@ left_column = [
     para(release_description, "CompactBody"),
     para("·", "Divider"),
     para('<link href="https://too.fm/fbmf" color="#7d263d">LISTEN TO THE SONG: too.fm/fbmf</link>', "Linkline"),
-    para('<link href="https://shiracarmel.com/assets/four-boys-maybe-five-shira-z-carmel.wav" color="#7d263d"><u>DOWNLOAD THE SONG - WAV (65 MB)</u></link>', "Linkline"),
+    para('<link href="https://shiracarmel.com/epk.html#press-preview" color="#7d263d"><u>Press Download With Password (WAV file)</u></link>', "Linkline"),
     Spacer(1, 3*mm), para("SHORT BIO", "Kicker"), para(short_bio, "CompactBody")
 ]
 poem = "Four boys, maybe five, are shaking a car,<br/>their faces distorted by the thrill of destruction.<br/>Beneath its wheels lies an abyss.<br/>Inside the car is your son.<br/>The car tilts.<br/>Desolation all around,<br/>desolation within you and without trying<br/>you already know,<br/>no voice will emerge from your throat.<br/>What will you do?<br/><br/>Four boys, maybe five, are shaking a car.<br/>Under its wheels lies an abyss.<br/>The boy in the car is not your son.<br/>Your son is outside with them,<br/>his face distorted by the<br/>thrill of destruction.<br/>What will you do"
