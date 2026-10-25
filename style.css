@@ -65,3 +65,5 @@ html{scroll-padding-top:90px}
 
 .press-preview[hidden],#preview-form[hidden],#preview-download[hidden]{display:none}
 #preview-download{margin-top:1rem}
+
+#preview-download:disabled{opacity:.6;cursor:wait}

@@ -60,42 +60,73 @@ window.addEventListener('hashchange', () => {
   if (location.hash === '#press-preview') openPressAudio(true);
 });
 const previewForm = document.getElementById('preview-form');
+const wavDownload = document.getElementById('preview-download');
+let pressKeyMaterial;
+let wavObjectUrl;
+async function decryptPressAudio(path, material) {
+  const response = await fetch(path);
+  if (!response.ok) throw new Error('The press audio is not available right now. Please try again.');
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const salt = bytes.slice(0, 16);
+  const iv = bytes.slice(16, 28);
+  const key = await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'}, material, {name:'AES-GCM',length:256}, false, ['decrypt']);
+  return crypto.subtle.decrypt({name:'AES-GCM',iv}, key, bytes.slice(28));
+}
 if (previewForm) previewForm.addEventListener('submit', async event => {
   event.preventDefault();
   const status = document.getElementById('preview-status');
   const player = document.getElementById('preview-audio');
-  const download = document.getElementById('preview-download');
   const submit = previewForm.querySelector('button[type="submit"]');
   const password = document.getElementById('preview-password').value;
-  status.textContent = 'Unlocking the press audio (65 MB). This may take a moment…';
+  status.textContent = 'Unlocking the listening preview…';
   submit.disabled = true;
   try {
-    const response = await fetch('assets/press-wav.enc');
-    if (!response.ok) throw new Error('The press audio is not available right now. Please try again.');
-    const bytes = new Uint8Array(await response.arrayBuffer());
-    const salt = bytes.slice(0, 16);
-    const iv = bytes.slice(16, 28);
-    const ciphertext = bytes.slice(28);
     const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
-    const key = await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'}, material, {name:'AES-GCM',length:256}, false, ['decrypt']);
-    const audio = await crypto.subtle.decrypt({name:'AES-GCM',iv}, key, ciphertext);
+    const audio = await decryptPressAudio('assets/press-preview.enc', material);
     if (player.dataset.objectUrl) URL.revokeObjectURL(player.dataset.objectUrl);
-    const objectUrl = URL.createObjectURL(new Blob([audio], {type:'audio/wav'}));
+    const objectUrl = URL.createObjectURL(new Blob([audio], {type:'audio/mpeg'}));
     player.src = objectUrl;
     player.dataset.objectUrl = objectUrl;
     player.hidden = false;
-    download.href = objectUrl;
-    download.hidden = false;
+    pressKeyMaterial = material;
+    wavDownload.hidden = false;
     previewForm.hidden = true;
     document.getElementById('preview-password').value = '';
-    status.textContent = 'Audio unlocked. Play the song below or download the WAV file.';
+    status.textContent = 'Audio unlocked. Listen below, or download the full-quality WAV (65 MB).';
   } catch (error) {
     status.textContent = error.name === 'OperationError' ? 'That password did not unlock the audio. Please check it and try again.' : (error.message || 'Unable to unlock the audio. Please try again.');
   } finally {
     submit.disabled = false;
   }
 });
-window.addEventListener('pagehide', () => {
+wavDownload?.addEventListener('click', async () => {
+  if (!pressKeyMaterial || wavDownload.disabled) return;
+  const status = document.getElementById('preview-status');
+  wavDownload.disabled = true;
+  wavDownload.textContent = 'Preparing WAV…';
+  status.textContent = 'Preparing the full-quality WAV (65 MB). Your download will start when it is ready.';
+  try {
+    if (!wavObjectUrl) {
+      const audio = await decryptPressAudio('assets/press-wav.enc', pressKeyMaterial);
+      wavObjectUrl = URL.createObjectURL(new Blob([audio], {type:'audio/wav'}));
+    }
+    const link = document.createElement('a');
+    link.href = wavObjectUrl;
+    link.download = 'four-boys-maybe-five-shira-z-carmel.wav';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    status.textContent = 'Your WAV download is ready. You can keep listening below.';
+  } catch (error) {
+    status.textContent = 'Unable to prepare the WAV download. Please try again.';
+  } finally {
+    wavDownload.disabled = false;
+    wavDownload.textContent = 'Download WAV (65 MB)';
+  }
+});
+window.addEventListener('pagehide', event => {
+  if (event.persisted) return;
   const player = document.getElementById('preview-audio');
   if (player?.dataset.objectUrl) URL.revokeObjectURL(player.dataset.objectUrl);
+  if (wavObjectUrl) URL.revokeObjectURL(wavObjectUrl);
 });
